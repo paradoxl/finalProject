@@ -1,5 +1,5 @@
-#ifndef createProfile_hpp
-#define createProfile_hpp
+#ifndef createProfile_h
+#define createProfile_h
 
 #include <iomanip>
 #include <iostream>
