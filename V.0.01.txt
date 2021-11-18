@@ -2,7 +2,8 @@
 
 		Needs to Function:	
 		-User Profiles
-			-Name, Gender
+			-Name, Gender 
+			// user profiles completed by Issac 10/17/21
 			-Track Macro Nutrients
 				Carbs
 				Fats
