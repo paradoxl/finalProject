@@ -1,9 +1,9 @@
 #include <iostream>
 using namespace std;
 
-
-void nutrientCalculation(float &protein, float &carbs, float &fats,
- float &goalP, float &goalC, float &goalF, float &totalCalories){
+template<class elemType>
+void foodLogType::nutrientCalculation(float &protein, float &carbs, float &fats,
+ float &goalP, float &goalC, float &goalF, float &totalCalories, float goalCalories){
     float totalProtein;
     float totalCarbs;
     float totalFats;
@@ -19,12 +19,11 @@ void nutrientCalculation(float &protein, float &carbs, float &fats,
     goalF = goalF - totalFats;
 
     totalCalories = (totalProtein * 9) + (totalCarbs * 4) + (totalFats *4);
-    //todo subtract from goal
-    
+    goalCalories = goalCalories - totalCalories;
 
 }
-
-void printNutrients(float goalP, float goalC, float goalF, float totalCalories){
+template <class elemType>
+void foodLogType::printNutrients(float goalP, float goalC, float goalF, float totalCalories){
     cout << goalP << " Protein Remaining" <<endl;
     cout << goalC << " Carbs Remaining" << endl;
     cout << goalF << " Fats Remaining" <<endl;
