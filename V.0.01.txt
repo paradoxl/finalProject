@@ -2,10 +2,12 @@
 
 		Needs to Function:	
 		-User Profiles
-			-Name, Gender
+			-Name, Gender 
+			// user profiles completed by Issac 10/17/21
 			-Track Macro Nutrients
 				Carbs
 				Fats
+				//nutrient calculations completed - Mike 10/17/21
 			-Food Log
 				Timestamps meals, snacks, eaten stuff
 	
@@ -14,12 +16,13 @@
 		User editing
 		Goals
 		BMR`
+		GUI
 test.cpp
-	#include ìuserprofile.hî
+	#include ‚Äúuserprofile.h‚Äù
 	
 
 
 UserProfile.h
-	#include ìfoodlog.h
-	#include ìmacro.h
+	#include ‚Äúfoodlog.h
+	#include ‚Äúmacro.h
 
