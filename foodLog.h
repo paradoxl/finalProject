@@ -6,7 +6,7 @@
 #include <ostream>
 #include <vector>
 #include <algorithm>
-
+#include <stack>
 
 using namespace std;
 
@@ -17,17 +17,51 @@ public:
     void searchFood();
     void addItem();
     void removeItem();
+    void calculateMacro();
+    void displayMeals();
 
     foodLogType();
     // Default constructor
 
     ~foodLogType();
     // Destructor
+
+  vector<string> foodLog;
+    string foodName;
+    string protein;
+    string fat;
+    string carb;
 };
+
+// template <class elemType>
+// void foodLogType<elemType>::calculateMacro(/*&goalP,&goalC,&goalF,&goalCalories*/){
+//     float totalProtein;
+//     float totalCarbs;
+//     float totalFats;
+
+//     totalProtein = totalProtein + protein;
+//     totalCarbs = totalCarbs + carb;
+//     totalFats = totalFats + fat;
+
+//     // goalP = goalP - totalProtein;
+//     // goalC = goalC - totalCarbs;
+//     // goalF = goalF - totalFats;
+
+//     // commented out. will need to be combined with files from issac containg user information
+//     totalCalories = (totalProtein * 9) + (totalCarbs * 4) + (totalFats *4);
+//     //goalCalories = goalCalories - totalCalories;
+
+//     cout << "Goal Protein: " << " todo: protein" << "Goal Crabs: " << " todo: Carbs" << "Goal Fat :" << "todo: fat" << "daily alloted calories: " << "todo: calories" << endl;
+//     cout << "This meal: protein" << protein << "Carbs: " << carb << "Fat: " << fat << "total Calories: " << totalCalories <<endl;
+
+// }
 
 template <class elemType>
 void foodLogType<elemType>::searchFood()
 {
+
+    vector<string> foodLog;
+
     ifstream inFile;
 
     inFile.open("food.txt");
@@ -42,10 +76,6 @@ void foodLogType<elemType>::searchFood()
     cout << "Which food would you like to search" << endl;
     cin >> search;
 
-    string foodName;
-    string carbs;
-    string protein;
-    string fat;
     int curLine;
     string line;
     string temp;
@@ -57,7 +87,7 @@ void foodLogType<elemType>::searchFood()
         if (line.find(search, 0) != string::npos)
         {
             cout << "found: " << search << " Macronutrients " << line << endl;
-            searchFinished = true;
+            // searchFinished = true;
         }
     }
 
@@ -69,9 +99,13 @@ void foodLogType<elemType>::searchFood()
         {
             foodName = temp;
             inFile >> protein;
-            inFile >> carbs;
+            inFile >> carb;
             inFile >> fat;
         }
+        foodLog.push_back(foodName);
+        foodLog.push_back(protein);
+        foodLog.push_back(carb);
+        foodLog.push_back(fat);
     }
 
     inFile.close();
@@ -95,8 +129,9 @@ void foodLogType<elemType>::searchFood()
             {
                 foodName = temp;
                 inFile >> protein;
-                inFile >> carbs;
+                inFile >> carb;
                 inFile >> fat;
+
             }
             curLine++;
             if (line.find(search2, 0) != string::npos)
@@ -104,19 +139,80 @@ void foodLogType<elemType>::searchFood()
                 cout << "found: " << search2 << " Macronutrients " << line << endl;
             }
         }
+        foodLog.push_back(foodName);
+        foodLog.push_back(protein);
+        foodLog.push_back(carb);
+        foodLog.push_back(fat);
+
         inFile.close();
     }
 
     else if (refine == "n" || refine == "N")
     {
         cout << "Thanks for adding that food!" << endl;
+             for (int i = 0; i < foodLog.size(); i++){
+        cout <<foodLog.at(i) <<endl;
+    }
+      
+      
     }
     else
     {
         cout << "incorrect input" << endl;
     }
 
-    inFile.close();
+
+    for (int i = 0; i < foodLog.size(); i++){
+        cout <<foodLog.at(i) <<endl;
+    }
+
+    string anotherOne;
+    cout << "would you like to add more food to this meal?" <<endl;
+    cout << "y or n" <<endl;
+    cin>>anotherOne;
+
+    if (anotherOne == "y" || anotherOne == "Y"){
+        searchFood();
+    }
+ 
+    else if (anotherOne == "n" || anotherOne == "N"){
+        cout << "Keep up the good work!" <<endl;
+    }
+    else{
+        cout << "Incorrect input: closing..." <<endl;
+    }
+}
+
+// template <class elemType>
+// void foodLogType<elemType>::calculateMacro(/*&goalP,&goalC,&goalF,&goalCalories*/){
+//     float totalProtein;
+//     float totalCarbs;
+//     float totalFats;
+//    // float totalCalories;
+
+//     totalProtein = totalProtein + protein;
+//     totalCarbs = totalCarbs + carb;
+//     totalFats = totalFats + fat;
+
+//     // goalP = goalP - totalProtein;
+//     // goalC = goalC - totalCarbs;
+//     // goalF = goalF - totalFats;
+
+//     // commented out. will need to be combined with files from issac containg user information
+//    // totalCalories = (totalProtein * 9) + (totalCarbs * 4) + (totalFats *4);
+//     //goalCalories = goalCalories - totalCalories;
+
+// }
+
+template <class elemType>
+void foodLogType<elemType>::displayMeals(){
+
+    cout << "Current meals: " <<endl;
+
+    for(int i = 0; i < foodLog.size(); i++){
+        cout << foodLog.at(i);
+    }
+
 }
 
 template <class elemType>
@@ -158,56 +254,75 @@ void foodLogType<elemType>::addItem()
     }
 }
 
+// template <class elemType>
+// void foodLogType<elemType>::removeItem()
+// {
+//     // Open the File
+//     std::ifstream in("food.txt");
+//     // Check if object is valid
+
+//     std::string str;
+//     vector<string> strVec;
+//     // Read the next line from File untill it reaches the end.
+//     while (std::getline(in, str))
+//     {
+//         // Line contains string of length > 0 then save it in vector
+//         if (str.size() > 0)
+//             strVec.push_back(str);
+//     }
+//     //Close The File
+//     in.close();
+
+//     string deleteItem;
+
+//     cout << "which item:" << endl;
+//     cin >> deleteItem;
+//     int k;
+//    auto it = find(strVec.begin(), strVec.end(), deleteItem);
+
+//    int index = it - strVec.begin();
+
+//    strVec.erase(index);
+
+//     // from what i can tell it needs the entire line to delete. however deleteItem only stores the first string
+//     // if i type apple-gala 14.8 .15 .13 only apple-gala is store in deleteItem
+
+//     cout << "You have selected to remove " << deleteItem << endl;
+//     cout << endl;
+
+//     for (int i = 0; i < strVec.size(); i++)
+//     {
+//         cout << strVec.at(i) << endl;
+//     }
+
+//     //apple-gala 14.8 .15 .13
+// }
 template <class elemType>
-void foodLogType<elemType>::removeItem()
+foodLogType<elemType>::foodLogType()
 {
-        // Open the File
-    std::ifstream in("food.txt");
-    // Check if object is valid
-  
-    std::string str;
-    vector<string> strVec;
-    // Read the next line from File untill it reaches the end.
-    while (std::getline(in, str))
-    {
-        // Line contains string of length > 0 then save it in vector
-        if(str.size() > 0)
-            strVec.push_back(str);
-    }
-    //Close The File
-    in.close();
-
-    string deleteItem;
-
-    cout << "which item:"<<endl;
-    cin >> deleteItem;
-    for (int i =0; i <strVec.size(); i++){
-        if (strVec.at(i) == deleteItem){
-            strVec.clear();
-        }
-    }
-
-    for (int i =0; i <strVec.size(); i++){
-        cout << strVec.at(i)<<endl;
-    }
-    
-    
 }
-    template <class elemType>
-    foodLogType<elemType>::foodLogType()
-    {
-    }
 
-    template <class elemType>
-    foodLogType<elemType>::~foodLogType()
-    {
-    }
+template <class elemType>
+foodLogType<elemType>::~foodLogType()
+{
+}
 
 #endif //FOODLOG_H
 
-
 /*
 code graveyard
+
+for (int i = 0; i < strVec.size(); i++)
+    {
+        if (strVec.at(i) == deleteItem)
+        {
+            strVec.erase(std::remove(strVec.begin(), strVec.end(), deleteItem), strVec.end());
+        }
+    }
+
+
+
+
 
   // int size = 40;
         // string array[size];
